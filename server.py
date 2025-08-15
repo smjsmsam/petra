@@ -12,9 +12,9 @@ import whisper
 SAMPLE_RATE = 16000
 app = FastAPI()
 logger = logging.getLogger(__name__)
-
 tts = TTS("tts_models/en/vctk/vits")
 stt_model = whisper.load_model("base")
+
 
 @app.websocket("/ws")
 async def audio_processor(websocket: WebSocket):
@@ -50,7 +50,7 @@ async def audio_processor(websocket: WebSocket):
                             f"Reply to this: {text}"
                         )
                         print("Transcribed: " + text)
-                        
+
                         tts_output = np.array(tts.tts(text=response.text, speaker="p339"))
                         print("Sending...")
                         await websocket.send_bytes((tts_output * 32767).astype(np.int16).tobytes())

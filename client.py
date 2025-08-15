@@ -33,14 +33,17 @@ class AudioClient:
         if key == Key.space and not self.is_recording:
             asyncio.run_coroutine_threadsafe(self.start_recording(), self.loop)
 
+
     def on_release(self, key):
         if key == Key.space and self.is_recording:
             asyncio.run_coroutine_threadsafe(self.stop_recording(), self.loop)
+
 
     async def start_recording(self):
         self.is_recording = True
         self.audio_buffer = []
         logger.info("Recording STARTED")
+
 
     async def stop_recording(self):
         self.is_recording = False
@@ -66,12 +69,12 @@ class AudioClient:
             blocksize=CHUNK_SIZE,
             callback=callback
         ):
-            
             self.keyboard_listener = Listener(on_press=self.on_press, on_release=self.on_release)
             self.keyboard_listener.start()
 
             while self.running:
                 await asyncio.sleep(0.05)
+
 
     async def connection_handler(self):
         while self.running:
@@ -127,6 +130,7 @@ class AudioClient:
         finally:
             self.cleanup()
 
+
     def cleanup(self):
         self.running = False
         self.connection_event.set()
@@ -136,6 +140,7 @@ class AudioClient:
             self.loop.stop()
             self.loop.close()
         logger.info("Client stopped")
+
 
 if __name__ == "__main__":
     client = AudioClient()
