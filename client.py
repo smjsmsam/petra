@@ -7,8 +7,8 @@ import time
 from threading import Thread, Event
 from pynput.keyboard import Key, Listener
 
-SAMPLE_RATE = 22050
-CHUNK_SIZE = 2048
+SAMPLE_RATE = 16000
+CHUNK_SIZE = 1024
 WS_URI = "ws://localhost:8000/ws"
 RECONNECT_DELAY = 3
 PING_INTERVAL = 20
@@ -16,6 +16,7 @@ PING_TIMEOUT = 30
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
 
 class AudioClient:
     def __init__(self):

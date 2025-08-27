@@ -1,14 +1,48 @@
-from TTS.api import TTS
-import sounddevice as sd
-import numpy as np
+import datetime
+from influxdb_client_3 import InfluxDBClient3
+import os
+from dotenv import load_dotenv
 
-tts = TTS(model_name="tts_models/en/vctk/vits")
+load_dotenv()
+client = InfluxDBClient3(
+    host="https://us-east-1-1.aws.cloud2.influxdata.com",
+    database="petra",
+    token=os.getenv("INFLUX_DB_API_TOKEN")
+)
 
-text = "Hello, this is a test of Coqui TTS on my MacBook."
-audio_np = tts.tts(text=text, speaker="p339")
+try:
+    dt = datetime.datetime.now(datetime.timezone.utc)
+    points = {
+        "measurement": "testuser",
+        "tags": {},
+        "fields": {"transcript": f"User: test {client != 0}\nPetra: test {client != 0}"},
+        "time": dt,
+    }
+    client.write(record=points, write_precision="s")
+    print("Connection successful!")
+except Exception as e:
+    print(f"Connection failed: {e}")
 
-sd.play(audio_np, samplerate=22050)
-sd.wait()
+# from pynput.keyboard import Key, Listener
+
+# def on_press(key):
+#     print(f"Key pressed: {key}")
+
+# with Listener(on_press=on_press) as listener:
+#     print("Press keys to test...")
+#     listener.join()
+
+# from TTS.api import TTS
+# import sounddevice as sd
+# import numpy as np
+
+# tts = TTS(model_name="tts_models/en/vctk/vits")
+
+# text = "Hello, this is a test of Coqui TTS on my MacBook."
+# audio_np = tts.tts(text=text, speaker="p339")
+
+# sd.play(audio_np, samplerate=22050)
+# sd.wait()
 
 # import whisper
 
