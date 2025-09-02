@@ -1,1 +1,2 @@
-# petra
+# PETRA
+Your beautiful AI girlfriend.
