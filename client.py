@@ -109,6 +109,8 @@ class AudioClient:
                                 sd.play(audio.astype(np.float32) / 32767.0, SAMPLE_RATE)
                                 sd.wait()
                                 self.is_playing = False
+                            else:
+                                logger.info("Petra: " + response)
                         except asyncio.TimeoutError:
                             pass
 

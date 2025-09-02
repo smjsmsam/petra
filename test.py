@@ -1,27 +1,27 @@
-import datetime
-from influxdb_client_3 import InfluxDBClient3
-import os
-from dotenv import load_dotenv
+# import datetime
+# from influxdb_client_3 import InfluxDBClient3
+# import os
+# from dotenv import load_dotenv
 
-load_dotenv()
-client = InfluxDBClient3(
-    host="https://us-east-1-1.aws.cloud2.influxdata.com",
-    database="petra",
-    token=os.getenv("INFLUX_DB_API_TOKEN")
-)
+# load_dotenv()
+# client = InfluxDBClient3(
+#     host="https://us-east-1-1.aws.cloud2.influxdata.com",
+#     database="petra",
+#     token=os.getenv("INFLUX_DB_API_TOKEN")
+# )
 
-try:
-    dt = datetime.datetime.now(datetime.timezone.utc)
-    points = {
-        "measurement": "testuser",
-        "tags": {},
-        "fields": {"transcript": f"User: test {client != 0}\nPetra: test {client != 0}"},
-        "time": dt,
-    }
-    client.write(record=points, write_precision="s")
-    print("Connection successful!")
-except Exception as e:
-    print(f"Connection failed: {e}")
+# try:
+#     dt = datetime.datetime.now(datetime.timezone.utc)
+#     points = {
+#         "measurement": "testuser",
+#         "tags": {},
+#         "fields": {"transcript": f"User: test {client != 0}\nPetra: test {client != 0}"},
+#         "time": dt,
+#     }
+#     client.write(record=points, write_precision="s")
+#     print("Connection successful!")
+# except Exception as e:
+#     print(f"Connection failed: {e}")
 
 # from pynput.keyboard import Key, Listener
 
@@ -73,7 +73,7 @@ except Exception as e:
 # # tts.tts_to_file(text=response.text, speaker="p339", file_path="output.wav")
 # tts.tts_to_file(text="Hi! My name is Petra!", speaker="p339", file_path="button1.wav")
 # tts.tts_to_file(text="Can you see? I'm staring at you!", speaker="p339", file_path="button2.wav")
-# tts.tts_to_file(text="What are you going to do today?", speaker="p339", file_path="button3.wav")
+# tts.tts_to_file(text="Hi, my name is Petra!", speaker="p339", file_path="hello.wav")
 # tts.tts_to_file(text="I can't speak yet, but I really want to!", speaker="p339", file_path="button4.wav")
 
 
